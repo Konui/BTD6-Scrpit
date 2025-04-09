@@ -156,11 +156,17 @@ class GUI:
         self.frame = Frame(self.root)
         self.frame.pack()
 
-        Button(self.frame, text="坐标工具", command=self.open_position_window).pack()
-        Button(self.frame, text="选择脚本", command=self.choice_script).pack()
-        Button(self.frame, text="开始", command=self.start).pack()
-        Button(self.frame, text="暂停/继续", command=self.pause_or_resume).pack()
-        Button(self.frame, text="终止", command=self.stop).pack()
+        self.menu_frame = Frame(self.frame)
+        self.menu_frame.pack()
+        Button(self.menu_frame, text="坐标工具", command=self.open_position_window).pack(side="left")
+        Button(self.menu_frame, text="选择脚本", command=self.choice_script).pack(side="left")
+
+        self.control_frame = Frame(self.frame)
+        self.control_frame.pack()
+
+        Button(self.control_frame, text="开始", command=self.start).pack(side="left")
+        Button(self.control_frame, text="暂停/继续", command=self.pause_or_resume).pack(side="left")
+        Button(self.control_frame, text="终止", command=self.stop).pack(side="left")
 
         self.running_var = StringVar(value=f"{status_dict[0 if self.script is None else self.script.running]}")
         self.runningLabel = Label(self.frame, textvariable=self.running_var)
