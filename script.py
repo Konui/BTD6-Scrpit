@@ -2,8 +2,6 @@ import threading
 from time import sleep
 from tkinter import messagebox
 
-from pyasn1_modules.rfc8410 import id_X448
-
 from game import Game
 
 def get_all_actions():
@@ -124,6 +122,7 @@ class Script:
         # 0 未开始 1 运行中 2 暂停 3 停止
         self.running = 0
         self.positions = {}
+        self.index = 0
 
     def load(self, path=None, content=None):
         lines = []
@@ -177,12 +176,15 @@ class Script:
                 sleep(1)
                 self.__process(action)
             action.action()
+            self.index = self.index + 1
         self.stop()
         print("运行结束")
 
     def start(self):
-        self.running = 1
-        threading.Thread(target=self.execute).start()
+        if self.running == 0 or self.running == 3:
+            self.reset()
+            self.running = 1
+            threading.Thread(target=self.execute).start()
 
     def stop(self):
         self.running = 3
@@ -196,6 +198,7 @@ class Script:
 
     def reset(self):
         self.running = 0
+        self.index = 0
 
 if __name__ == '__main__':
     sleep(2)

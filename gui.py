@@ -1,5 +1,6 @@
-from tkinter import Label, Frame, Button, messagebox, Tk, Toplevel, StringVar, Entry, Text, filedialog, DISABLED
+from tkinter import Label, Frame, Button, Tk, Toplevel, StringVar, Entry, Text, filedialog, DISABLED
 from tkinter.constants import NORMAL, END
+from tkinter.scrolledtext import ScrolledText
 
 from pynput import mouse, keyboard
 from game import Game
@@ -167,9 +168,15 @@ class GUI:
         self.path_label = Label(self.frame, text="未选择脚本")
         self.path_label.pack()
 
-        self.text_area = Text(self.frame, state=DISABLED)
+        self.text_area = ScrolledText(self.frame, state=DISABLED)
         self.text_area.pack()
 
+        # 初始化标签样式
+        self.text_area.tag_config("current", background="yellow")
+        self.text_area.tag_config("executed", background="#d4edda", foreground="#155724")
+        self.text_area.tag_config("pending", foreground="#6c757d")
+
+        self.content = ''
 
     def start(self):
         if self.script is not None:
@@ -180,6 +187,19 @@ class GUI:
         self.running_var.set(f"{status_dict[0 if self.script is None else self.script.running]}")
         if self.script.running < 3:
             self.root.after(300, self.update_status)
+        line_num = self.script.index + 1
+        self.text_area.config(state=NORMAL)
+        # 设置当前行高亮
+        self.text_area.tag_remove("current", "1.0", "end")
+        self.text_area.tag_add("current", f"{line_num}.0", f"{line_num}.end")
+        # 已执行的行改为绿色
+        if line_num > 1:
+            self.text_area.tag_add("executed", f"{line_num-1}.0", f"{line_num-1}.end")
+            self.text_area.tag_remove("pending", f"{line_num-1}.0", f"{line_num-1}.end")
+            self.text_area.see(f"{line_num}.0")  # 滚动到当前行
+
+        self.root.update()
+        self.text_area.config(state=DISABLED)
 
     def pause_or_resume(self):
         if self.script is not None:
@@ -210,10 +230,18 @@ class GUI:
                     content = f.read()
                     self.script = Script(self.game)
                     self.script.load(content=content)
-                    action = '\n'.join([a.line for a in self.script.actions])
+                    self.content = '\n'.join([a.line for a in self.script.actions])
+
                     self.text_area.config(state=NORMAL)
                     self.text_area.delete(1.0, END)
-                    self.text_area.insert(END, action)
+                    self.text_area.insert(END, self.content)
+
+                    # 清除旧标签
+                    self.text_area.tag_remove("current", "1.0", "end")
+                    self.text_area.tag_remove("executed", "1.0", "end")
+                    # 初始所有行设为灰色
+                    for i in range(1, self.script.index + 1):
+                        self.text_area.tag_add("pending", f"{i}.0", f"{i}.end")
                     self.text_area.config(state=DISABLED)
             except Exception as e:
                 self.path_label.config(text=f"读取文件失败: {e}")
