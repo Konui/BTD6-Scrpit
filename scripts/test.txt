@@ -1,0 +1,4 @@
+place u 300,320 英雄
+
+place s 920,530 超猴
+upgrade 1 超猴
