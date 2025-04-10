@@ -1,7 +1,8 @@
 import threading
 from time import sleep
 from tkinter import messagebox
-
+from pynput import keyboard
+from actions import *
 from game import Game
 
 def get_all_actions():
@@ -10,114 +11,6 @@ def get_all_actions():
     for subclass in Action.__subclasses__():
         all_subclasses.append(subclass)
     return all_subclasses
-
-
-class Action:
-    def __init__(self, game, line):
-        self.game = game
-        self.line = line
-
-    # 识别前操作
-    def pre_recognition(self):
-        pass
-
-    # 识别后操作
-    def after_recognition(self):
-        pass
-
-    # 满足条件后才会执行 action
-    def condition(self):
-        pass
-
-    # 具体执行action
-    def action(self):
-        pass
-
-    # 解析代码行
-    def parse(self, parts, script):
-        pass
-
-'''
-place u 120,120
-'''
-class Place(Action):
-    def __init__(self, game, line):
-        super().__init__(game, line)
-        self.key = None
-        self.x = None
-        self.y = None
-
-    def condition(self):
-        return self.game.sell_money is not None
-
-    def pre_recognition(self):
-        self.__place()
-        self.game.sleep()
-        self.game.mouse_move(self.x, self.y)
-        self.game.sleep()
-        self.game.mouse_click()
-        self.game.sleep(0.5)
-
-    def after_recognition(self):
-        self.game.mouse_click()
-
-    def __place(self):
-        self.game.mouse_move(self.x, self.y)
-        self.game.sleep()
-        self.game.keyboard_tap(self.key)
-        self.game.sleep()
-        self.game.mouse_click()
-
-    def action(self):
-        pass
-
-    def parse(self, parts, script):
-        self.key = parts[1]
-        positions = parts[2].split(",")
-        self.x = int(positions[0])
-        self.y = int(positions[1])
-        if len(parts) > 3:
-            script.positions[parts[3]] = self.x, self.y
-
-
-class Upgrade(Action):
-    def __init__(self, game, line):
-        super().__init__(game, line)
-        self.x = None
-        self.y = None
-        self.path = None
-
-    def condition(self):
-        return self.game.money > [self.game.upgrade1, self.game.upgrade2, self.game.upgrade3][self.path]
-
-    def pre_recognition(self):
-        self.game.mouse_move(self.x, self.y)
-        self.game.sleep()
-        self.game.mouse_click()
-        self.game.sleep(0.5)
-
-    def after_recognition(self):
-        self.game.mouse_click()
-
-    def action(self):
-        self.game.mouse_move(self.x, self.y)
-        self.game.sleep()
-        self.game.mouse_click()
-        self.game.sleep()
-        self.game.keyboard_tap([',','.','/'][self.path])
-        self.game.sleep()
-        self.game.mouse_click()
-
-    def parse(self, parts, script):
-        self.path = int(parts[1]) - 1
-        positions = parts[2].split(",")
-        if len(parts) == 2:
-            self.x = int(positions[0])
-            self.y = int(positions[1])
-        else:
-            x,y = script.positions[parts[2]]
-            self.x = x
-            self.y = y
 
 class Script:
     def __init__(self, game):
@@ -128,6 +21,13 @@ class Script:
         self.running = 0
         self.positions = {}
         self.index = 0
+
+        def on_press(key):
+            if key == keyboard.Key.ctrl_l:
+                print("暂停/恢复")
+                self.pause_or_resume()
+
+        keyboard.Listener(on_press=on_press).start()
 
     def load(self, path=None, content=None):
         lines = []
@@ -166,21 +66,27 @@ class Script:
         if not self.game.window.isActive or self.running > 1:
             return
         print(action.line)
-        action.pre_recognition()
-        self.game.recognition()
-        action.after_recognition()
+        try:
+            action.pre_recognition()
+            self.game.recognition()
+            action.after_recognition()
+        except Exception as e:
+            print(e)
 
     def execute(self):
         print("开始执行")
         print(self.actions)
+        self.game.activate_window()
         for action in self.actions:
+            action.pre_action()
             self.__process(action)
             while not action.condition():
                 if self.running > 1:
                     return
-                sleep(1)
+                self.game.sleep()
                 self.__process(action)
             action.action()
+            action.after_action()
             self.index = self.index + 1
         self.stop()
         print("运行结束")
@@ -206,10 +112,10 @@ class Script:
         self.index = 0
 
 if __name__ == '__main__':
-    sleep(2)
     g = Game()
     scp = Script(g)
-    scp.load("scripts/test.txt")
+    scp.load("scripts/工坊.txt")
     scp.start()
+
 
 

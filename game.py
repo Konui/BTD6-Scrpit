@@ -10,15 +10,15 @@ import pyautogui, cv2
 
 from ocr import OCR
 
-money_path_1 = 340,20,550,60
-money_path_2 = 730,20, 940,60
+money_path_1 = 340,20,550,70
+money_path_2 = 730,20,940,70
 
 upgrade_left_1 = 250,500, 400,550
 upgrade_right1 = 1470,500, 1620,550
 upgrade_left_2 = 250, 650, 400,700
 upgrade_right2 = 1470, 650, 1620,700
-upgrade_left_3 = 250, 800, 400,850
-upgrade_right3 = 1470, 800, 1620,850
+upgrade_left_3 = 250, 800, 400,855
+upgrade_right3 = 1470, 800, 1620,855
 
 sell_money_1 = 100,890, 240, 930
 sell_money_2 = 1320,880, 1450, 930
@@ -26,7 +26,7 @@ sell_money_2 = 1320,880, 1450, 930
 round_1 = 1360,30 ,1560,70
 round_2 = 950,30, 1160,70
 '''
-获取游戏相关数据
+获取游戏相关数据 执行游戏相关操作
 '''
 class Game:
     def __init__(self):
