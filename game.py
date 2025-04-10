@@ -55,7 +55,7 @@ class Game:
             "round_1": round_1,
             "round_2": round_2,
         }
-
+        self.last_screenshot = None
         self.money = None
         self.upgrade1 = None
         self.upgrade2 = None
@@ -110,6 +110,7 @@ class Game:
             results.append(self.ocr.recognition(np.array(region_img)))
 
         self.reset()
+        self.last_screenshot = screenshot
         self.money = self.__parse_money(results[:2])
         self.upgrade1 = self.__parse_money(results[2:4])
         self.upgrade2 = self.__parse_money(results[4:6])
@@ -137,6 +138,7 @@ class Game:
         sleep(interval)
 
     def reset(self):
+        self.last_screenshot = None
         self.money = None
         self.upgrade1 = None
         self.upgrade2 = None
