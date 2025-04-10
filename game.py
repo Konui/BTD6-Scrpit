@@ -21,7 +21,7 @@ upgrade_left_3 = 250, 800, 400,855
 upgrade_right3 = 1470, 800, 1620,855
 
 sell_money_1 = 100,890, 240, 930
-sell_money_2 = 1320,880, 1450, 930
+sell_money_2 = 1300,880, 1470, 940
 
 round_1 = 1360,30 ,1560,70
 round_2 = 950,30, 1160,70
@@ -39,7 +39,7 @@ class Game:
         self.y_offset = 44
         self.window = self.__get_window()
         self.ocr = OCR()
-        self.sleep_interval = 0.05
+        self.sleep_interval = 0.1
 
         self.regions = {
             "money_1": money_path_1,

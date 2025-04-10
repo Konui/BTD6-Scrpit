@@ -83,11 +83,12 @@ class Script:
             while not action.condition():
                 if self.running > 1:
                     return
-                self.game.sleep()
+                self.game.sleep(self.game.sleep_interval * 3)
                 self.__process(action)
             action.action()
             action.after_action()
             self.index = self.index + 1
+            self.game.sleep()
         self.stop()
         print("运行结束")
 
@@ -114,7 +115,7 @@ class Script:
 if __name__ == '__main__':
     g = Game()
     scp = Script(g)
-    scp.load("scripts/工坊.txt")
+    scp.load("scripts/test.txt")
     scp.start()
 
 

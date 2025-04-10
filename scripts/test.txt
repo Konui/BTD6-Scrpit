@@ -1,4 +1,23 @@
-place u 300,320 英雄
+place q 300,320 毛毛
+place d 920,530 忍者
 
-place s 920,530 超猴
-upgrade 1 超猴
+upgrade 1 毛毛
+upgrade 1 忍者
+
+upgrade 1 毛毛
+upgrade 1 忍者
+
+upgrade 2 毛毛
+upgrade 2 忍者
+
+upgrade 1 毛毛
+upgrade 1 忍者
+
+upgrade 1 毛毛
+upgrade 1 忍者
+
+upgrade 1 毛毛
+upgrade 1 忍者
+
+upgrade 2 毛毛
+upgrade 2 忍者

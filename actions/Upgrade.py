@@ -14,15 +14,15 @@ class Upgrade(Action):
         return self.game.money >= need_money
 
     def pre_action(self):
-        self.game.mouse_move(self.x, self.y)
         self.game.sleep()
+        self.game.mouse_move(self.x, self.y)
         self.game.mouse_click()
         self.game.sleep()
 
     def after_action(self):
         self.game.mouse_move(self.x, self.y)
-        self.game.sleep()
         self.game.mouse_click()
+        self.game.sleep()
 
     def action(self):
         self.game.keyboard_tap([',','.','/'][self.path])
