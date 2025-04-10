@@ -1,12 +1,14 @@
 import torch
 from paddleocr import PaddleOCR
 
+from common import timer
 
 
 class OCR():
     def __init__(self):
         self.model = PaddleOCR(lang="ch", use_angle_cls=False)
 
+    @timer
     def recognition(self, img):
         result = []
         output  = self.model.ocr(img)
