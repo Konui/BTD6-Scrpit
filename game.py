@@ -22,6 +22,9 @@ upgrade_right3 = 1470, 800, 1620,850
 
 sell_money_1 = 100,890, 240, 930
 sell_money_2 = 1320,880, 1450, 930
+
+round_1 = 1360,30 ,1560,70
+round_2 = 950,30, 1160,70
 '''
 获取游戏相关数据
 '''
@@ -49,6 +52,8 @@ class Game:
             "upgrade_right_3": upgrade_right3,
             "sell_money_1": sell_money_1,
             "sell_money_2": sell_money_2,
+            "round_1": round_1,
+            "round_2": round_2,
         }
 
         self.money = None
@@ -56,7 +61,7 @@ class Game:
         self.upgrade2 = None
         self.upgrade3 = None
         self.sell_money = None
-
+        self.round = None
 
     def __get_window(self):
         window = gw.getWindowsWithTitle(self.window_title)
@@ -110,7 +115,8 @@ class Game:
         self.upgrade2 = self.__parse_money(results[4:6])
         self.upgrade3 = self.__parse_money(results[6:8])
         self.sell_money = self.__parse_money(results[8:10])
-        print(f"money: {self.money}, upgrade1: {self.upgrade1}, upgrade2: {self.upgrade2}, upgrade3: {self.upgrade3}, sell money: {self.sell_money}")
+        self.round = self.__parse_round(results[10:12])
+        print(f"money: {self.money}, round: {self.round}, upgrade1: {self.upgrade1}, upgrade2: {self.upgrade2}, upgrade3: {self.upgrade3}, sell money: {self.sell_money}")
 
     def __parse_money(self, arr):
         for res in arr:
@@ -118,6 +124,12 @@ class Game:
                 if (r.startswith("$")):
                     return int(r.replace("$", "").replace(",", ""))
         return None
+
+    def __parse_round(self, arr):
+        for res in arr:
+            for r in res:
+                if "/" in r:
+                    return int(r.split("/")[0])
 
     def sleep(self, interval = None):
         if interval is None:
@@ -130,6 +142,7 @@ class Game:
         self.upgrade2 = None
         self.upgrade3 = None
         self.sell_money =None
+        self.round = None
 
 if __name__ == "__main__":
     game = Game()

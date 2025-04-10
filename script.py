@@ -17,18 +17,23 @@ class Action:
         self.game = game
         self.line = line
 
+    # 识别前操作
     def pre_recognition(self):
         pass
 
+    # 识别后操作
     def after_recognition(self):
         pass
 
+    # 满足条件后才会执行 action
     def condition(self):
         pass
 
+    # 具体执行action
     def action(self):
         pass
 
+    # 解析代码行
     def parse(self, parts, script):
         pass
 

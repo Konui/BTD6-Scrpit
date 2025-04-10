@@ -190,9 +190,11 @@ class GUI:
             self.update_status()
 
     def update_status(self):
-        self.running_var.set(f"{status_dict[0 if self.script is None else self.script.running]}")
         if self.script.running < 3:
             self.root.after(300, self.update_status)
+
+        self.running_var.set(f"{status_dict[0 if self.script is None else 2 if not self.game.window.isActive else self.script.running]}")
+
         line_num = self.script.index + 1
         self.text_area.config(state=NORMAL)
         # 设置当前行高亮
@@ -204,8 +206,8 @@ class GUI:
             self.text_area.tag_remove("pending", f"{line_num-1}.0", f"{line_num-1}.end")
             self.text_area.see(f"{line_num}.0")  # 滚动到当前行
 
-        self.root.update()
         self.text_area.config(state=DISABLED)
+        self.root.update()
 
     def pause_or_resume(self):
         if self.script is not None:
