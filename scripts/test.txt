@@ -1,23 +1,24 @@
 place q 300,320 毛毛
 place d 920,530 忍者
 
-upgrade 1 毛毛
-upgrade 1 忍者
+upgrade 毛毛 1
+upgrade 忍者 1
 
-upgrade 1 毛毛
-upgrade 1 忍者
+upgrade 毛毛 1
+upgrade 忍者 1
 
-upgrade 2 毛毛
-upgrade 2 忍者
+upgrade 毛毛 2
+upgrade 忍者 2
 
-upgrade 1 毛毛
-upgrade 1 忍者
+upgrade 毛毛 1
+upgrade 忍者 1
 
-upgrade 1 毛毛
-upgrade 1 忍者
+upgrade 毛毛 1
+upgrade 忍者 1
 
-upgrade 1 毛毛
-upgrade 1 忍者
+upgrade 毛毛 1
+upgrade 忍者 1
 
-upgrade 2 毛毛
-upgrade 2 忍者
+
+upgrade 毛毛 2
+upgrade 忍者 2 5
