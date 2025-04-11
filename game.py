@@ -114,7 +114,7 @@ class Game:
         screenshot = self.screenshot()
         results = []
         for coords in regions:
-            scaled_coords = tuple(round(x * self.scale) for x in coords)
+            scaled_coords = self.scale_point(coords)
             region_img = screenshot.crop(scaled_coords)
             results.append(self.ocr.recognition(np.array(region_img)))
         return results
@@ -137,7 +137,8 @@ class Game:
             interval = self.sleep_interval
         sleep(interval)
 
-
+    def scale_point(self, points):
+        return tuple(round(p * self.scale) for p in points)
 
 if __name__ == "__main__":
     game = Game()

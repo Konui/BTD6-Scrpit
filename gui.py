@@ -28,7 +28,7 @@ class PositionWindow(Toplevel):
         # 初始化变量
         self.current_x = 0
         self.current_y = 0
-        self.win_position = (0, 0)
+        self.win_position = (0, 0, 0, 0)
         self.last_pos_update = 0
         self.pressed_keys = set()
         self.keyboard_timer = None
@@ -85,7 +85,7 @@ class PositionWindow(Toplevel):
             self.win_position = self.game.position()
             self.last_pos_update = time.time()
 
-        win_x, win_y = self.win_position
+        win_x, win_y, _, _ = self.win_position
         rel_x = self.current_x - win_x
         rel_y = self.current_y - win_y
         self.position_var.set(f"相对坐标: ({rel_x}, {rel_y})")

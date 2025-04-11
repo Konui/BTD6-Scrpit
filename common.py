@@ -20,11 +20,11 @@ def is_color_similar(rgb_actual, rgb_target, threshold=80):
     print(distance)
     return distance <= threshold
 
-# 模版匹配，模版和实际匹配特征的图片大小要完全一致
+# 模版匹配，模版和实际匹配特征的图片大小要完全一致, 阈值越小越相似
 @timer
-def test(target, template):
+def match(target, template, threshold=0.01):
     result = cv2.matchTemplate(target, template, cv2.TM_SQDIFF_NORMED)
-    return cv2.minMaxLoc(result)[0] < 0.01
+    return cv2.minMaxLoc(result)[0] < threshold
 
 if __name__ == '__main__':
     print(is_color_similar((0, 221, 255), (120, 230, 0)))
