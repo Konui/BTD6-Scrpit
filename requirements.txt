@@ -1,0 +1,9 @@
+pynput
+pillow
+numpy
+torch
+paddleocr
+pygetwindow
+pyautogui
+opencv-python
+pywin32
