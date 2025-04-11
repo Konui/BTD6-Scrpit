@@ -7,6 +7,9 @@ class Action:
         self.menu = context.menu
         self.line = line
 
+        self.x = None
+        self.y = None
+
     # 所有操作前
     def pre_action(self):
         pass
@@ -29,3 +32,13 @@ class Action:
     # 解析代码行
     def parse(self, parts):
         pass
+
+    def parse_position(self, position):
+        positions = position.split(",")
+        if len(positions) == 2:
+            self.x = int(positions[0])
+            self.y = int(positions[1])
+        else:
+            x,y = self.context.script.positions[position]
+            self.x = x
+            self.y = y

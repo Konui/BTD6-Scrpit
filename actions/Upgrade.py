@@ -31,14 +31,7 @@ class Upgrade(Action):
         self.game.sleep()
 
     def parse(self, parts):
-        positions = parts[1].split(",")
-        if len(positions) == 2:
-            self.x = int(positions[0])
-            self.y = int(positions[1])
-        else:
-            x,y = self.context.script.positions[parts[1]]
-            self.x = x
-            self.y = y
+        self.parse_position(parts[1])
 
         self.path = int(parts[2]) - 1
         if len(parts) > 3:

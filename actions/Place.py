@@ -10,6 +10,7 @@ class Place(Action):
         self.x = None
         self.y = None
 
+    # to do 后续如果不可用考虑匹配地板前后相似度
     def loop(self):
         # 获取状态信息
         first_money = self.game.rec_money()
