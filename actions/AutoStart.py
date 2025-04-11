@@ -1,17 +1,18 @@
 from actions import Action
 
-class Upgrade(Action):
+class AutoStart(Action):
     def __init__(self, game, line):
         super().__init__(game, line)
         self.x = None
         self.y = None
-        self.path = None
-        self.times = 1
+        self.enable = True
 
     def condition(self):
-        need_money = [self.game.upgrade1, self.game.upgrade2, self.game.upgrade3][self.path]
-        if need_money is None or self.game.money is None:
-            return False
+        self.game.keyboard_tap(self.game.keybinds['exit'])
+        self.game.sleep()
+
+        sc = self.game.screenshot()
+        
         return self.game.money >= need_money
 
     def pre_action(self):
@@ -26,9 +27,7 @@ class Upgrade(Action):
         self.game.mouse_click()
 
     def action(self):
-        for 1 in self.times :
-            self.game.keyboard_tap([',','.','/'][self.path])
-            self.game.sleep()
+        self.game.keyboard_tap([',','.','/'][self.path])
 
     def parse(self, parts, script):
         self.times = parts[-1]

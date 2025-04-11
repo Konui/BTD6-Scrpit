@@ -7,24 +7,13 @@ from pynput.mouse import Controller as MouseController, Button as MouseButton
 from pynput.keyboard import Controller as KeyboardController
 import pygetwindow as gw
 import pyautogui, cv2
+import json
 
 from ocr import OCR
 
-money_path_1 = 340,20,550,70
-money_path_2 = 730,20,940,70
+positionFileLocation = "./position.json"
+keybindsFileLocation = "./keybinds.json"
 
-upgrade_left_1 = 250,500, 400,550
-upgrade_right1 = 1470,500, 1620,550
-upgrade_left_2 = 250, 650, 400,700
-upgrade_right2 = 1470, 650, 1620,700
-upgrade_left_3 = 250, 800, 400,855
-upgrade_right3 = 1470, 800, 1620,855
-
-sell_money_1 = 100,890, 240, 930
-sell_money_2 = 1320,880, 1450, 930
-
-round_1 = 1360,30 ,1560,70
-round_2 = 950,30, 1160,70
 '''
 获取游戏相关数据 执行游戏相关操作
 '''
@@ -41,20 +30,11 @@ class Game:
         self.ocr = OCR()
         self.sleep_interval = 0.05
 
-        self.regions = {
-            "money_1": money_path_1,
-            "money_2": money_path_2,
-            "upgrade_left_1": upgrade_left_1,
-            "upgrade_right_1": upgrade_right1,
-            "upgrade_left_2": upgrade_left_2,
-            "upgrade_right_2": upgrade_right2,
-            "upgrade_left_3": upgrade_left_3,
-            "upgrade_right_3": upgrade_right3,
-            "sell_money_1": sell_money_1,
-            "sell_money_2": sell_money_2,
-            "round_1": round_1,
-            "round_2": round_2,
-        }
+        with open(positionFileLocation) as p :
+            self.regions = json.load(p)['1k']
+
+        with open(keybindsFileLocation) as k :
+            self.keybinds = json.load(k)
 
         self.money = None
         self.upgrade1 = None
