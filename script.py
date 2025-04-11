@@ -1,9 +1,10 @@
-import threading
 from time import sleep
 from tkinter import messagebox
 from pynput import keyboard
 from actions import *
 from game import Game
+from job import JobTemplate, JobStatus
+
 
 def get_all_actions():
     all_subclasses = []
@@ -12,13 +13,12 @@ def get_all_actions():
         all_subclasses.append(subclass)
     return all_subclasses
 
-class Script:
+class Script(JobTemplate):
     def __init__(self, game):
+        super().__init__()
         self.action_dict = {action.__name__.lower(): action for action in get_all_actions()}
         self.game = game
         self.actions = []
-        # 0 未开始 1 运行中 2 暂停 3 停止
-        self.running = 0
         self.positions = {}
         self.index = 0
 
@@ -27,7 +27,9 @@ class Script:
                 print("暂停/恢复")
                 self.pause_or_resume()
 
-        keyboard.Listener(on_press=on_press).start()
+        listener = keyboard.Listener(on_press=on_press)
+        listener.daemon=True
+        listener.start()
 
     def load(self, path=None, content=None):
         lines = []
@@ -63,7 +65,7 @@ class Script:
                 raise Exception("脚本解析失败")
 
     def __process(self, action):
-        if not self.game.window.isActive or self.running > 1:
+        if not self.game.window.isActive or self._status != JobStatus.RUNNING:
             return
         print(action.line)
         try:
@@ -73,16 +75,22 @@ class Script:
         except Exception as e:
             print(e)
 
-    def execute(self):
+    def _run_task(self):
         print("开始执行")
         print(self.actions)
-        self.game.activate_window()
         for action in self.actions:
+            if self._stop_event.is_set():
+                break
+            elif self._status == JobStatus.PAUSED:
+                self._pause_event.wait()
+
             action.pre_action()
             self.__process(action)
             while not action.condition():
-                if self.running > 1:
-                    return
+                if self._stop_event.is_set():
+                    break
+                elif self._status == JobStatus.PAUSED:
+                    self._pause_event.wait()
                 self.game.sleep(self.game.sleep_interval * 3)
                 self.__process(action)
             action.action()
@@ -90,26 +98,10 @@ class Script:
             self.index = self.index + 1
             self.game.sleep()
         self.stop()
-        print("运行结束")
 
-    def start(self):
-        if self.running == 0 or self.running == 3:
-            self.reset()
-            self.running = 1
-            threading.Thread(target=self.execute).start()
-
-    def stop(self):
-        self.running = 3
-
-    def pause_or_resume(self):
-        if self.running == 1:
-            self.running = 2
-        elif self.running == 2:
-            self.running = 1
-        return self.running
 
     def reset(self):
-        self.running = 0
+        super().reset()
         self.index = 0
 
 if __name__ == '__main__':
@@ -117,6 +109,15 @@ if __name__ == '__main__':
     scp = Script(g)
     scp.load("scripts/test.txt")
     scp.start()
+
+    sleep(5)
+    scp.pause_or_resume()
+    sleep(5)
+    scp.pause_or_resume()
+
+    scp.join()
+
+    print(scp.status)
 
 
 
