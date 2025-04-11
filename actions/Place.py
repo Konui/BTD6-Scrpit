@@ -18,6 +18,8 @@ class Place(Action):
         self.game.sleep()
         second_money = self.game.rec_money()
         #放成功少点一下
+        if first_money is None or second_money is None:
+            return False
         if first_money > second_money:
             return True
         self.game.mouse_click()

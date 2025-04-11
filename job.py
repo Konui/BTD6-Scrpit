@@ -1,5 +1,6 @@
 import threading
 import time
+import traceback
 from enum import Enum, auto
 
 
@@ -34,7 +35,7 @@ class JobTemplate:
         try:
             self._run_task()
         except Exception as e:
-            print(e)
+            traceback.print_exc()
         self.stop()
 
     def start(self):

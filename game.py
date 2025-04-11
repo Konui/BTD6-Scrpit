@@ -7,7 +7,7 @@ from pynput import keyboard
 from pynput.mouse import Controller as MouseController, Button as MouseButton
 from pynput.keyboard import Controller as KeyboardController
 import pygetwindow as gw
-import pyautogui, cv2
+import pyautogui, cv2, win32gui
 
 from ocr import OCR
 
@@ -30,19 +30,29 @@ round_2 = 950,30, 1160,70
 获取游戏相关数据 执行游戏相关操作
 '''
 class Game:
-    def __init__(self):
+    def __init__(self, resolution='1k'):
         self.mouse = MouseController()
         self.keyboard = KeyboardController()
         self.window_title = "BloonsTD6"
-        self.width = 1920
-        self.height = 1080
-        self.x_offset = 12
-        self.y_offset = 44
+
         self.window = self.__get_window()
         self.ocr = OCR()
         self.sleep_interval = 0.2
 
         self.last_screenshot = None
+        self.__resolution()
+
+
+    def __resolution(self):
+        position = self.position()
+        if position[2] == 1920 and position[3] == 1080:
+            self.scale = float(1)
+        elif position[2] == 2560 and position[3] == 1440:
+            self.scale = float(4/3)
+        elif position[2] == 3840 and position[3] == 2160:
+            self.scale = float(2)
+        else:
+            messagebox.showwarning("错误", f"没有对应分辨率: {position[:-2]}")
 
     def __get_window(self):
         window = gw.getWindowsWithTitle(self.window_title)
@@ -53,21 +63,26 @@ class Game:
             messagebox.showwarning("警告", f"未找到【{self.window_title}】窗口")
 
     def position(self):
-        window = self.window
-        return window.left + self.x_offset, window.top + self.y_offset
+        hwnd = self.window._hWnd
+        client_rect = win32gui.GetClientRect(hwnd)
+        # 将客户区坐标转换为屏幕坐标
+        client_left, client_top = win32gui.ClientToScreen(hwnd, (client_rect[0], client_rect[1]))
+        client_width = client_rect[2] - client_rect[0]
+        client_height = client_rect[3] - client_rect[1]
+        return client_left, client_top, client_width, client_height
 
     def screenshot(self):
-        window = self.window
-        self.last_screenshot = pyautogui.screenshot(region=(window.left + self.x_offset, window.top + self.y_offset , self.width, self.height))
+        position = self.position()
+        self.last_screenshot = pyautogui.screenshot(region=position)
         return self.last_screenshot
 
     def mouse_move(self, x, y):
         # 获取最新游戏窗口位置
-        win_x, win_y = self.position()
+        win_x, win_y, _,_ = self.position()
 
         # 计算绝对坐标并移动
-        absolute_x = win_x + x
-        absolute_y = win_y + y
+        absolute_x = win_x + round(x * self.scale)
+        absolute_y = win_y + round(y * self.scale)
         self.mouse.position = (absolute_x, absolute_y)
         print(f"移动鼠标: ({absolute_x}, {absolute_y})")
 
@@ -99,7 +114,8 @@ class Game:
         screenshot = self.screenshot()
         results = []
         for coords in regions:
-            region_img = screenshot.crop(coords)
+            scaled_coords = tuple(round(x * self.scale) for x in coords)
+            region_img = screenshot.crop(scaled_coords)
             results.append(self.ocr.recognition(np.array(region_img)))
         return results
 

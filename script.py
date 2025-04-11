@@ -104,7 +104,7 @@ class Context:
 if __name__ == '__main__':
     context = Context()
     scp = Script(context)
-    scp.load("scripts/工坊.txt")
+    scp.load("scripts/test.txt")
     scp.start()
 
     scp.join()
