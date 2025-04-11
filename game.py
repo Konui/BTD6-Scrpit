@@ -1,6 +1,7 @@
 from time import sleep
 from tkinter import messagebox
 
+import PIL.Image
 import numpy as np
 from pynput import keyboard
 from pynput.mouse import Controller as MouseController, Button as MouseButton
@@ -15,8 +16,8 @@ money_path_2 = 730,20,940,70
 
 upgrade_left_1 = 250,500, 400,550
 upgrade_right_1 = 1470,500, 1620,550
-upgrade_left_2 = 250, 650, 400,700
-upgrade_right_2 = 1470, 650, 1620,700
+upgrade_left_2 = 250, 680, 400,710
+upgrade_right_2 = 1470, 680, 1620,710
 upgrade_left_3 = 250, 800, 400,855
 upgrade_right_3 = 1470, 800, 1620,855
 
@@ -106,7 +107,7 @@ class Game:
         for res in arr:
             for r in res:
                 if (r.startswith("$")):
-                    return int(r.replace("$", "").replace(",", ""))
+                    return int(r.replace("$", "").replace(",", "").replace(".",""))
         return None
 
     def __parse_round(self, arr):

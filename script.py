@@ -19,6 +19,7 @@ class Script(JobTemplate):
         super().__init__()
         self.action_dict = {action.__name__.lower(): action for action in get_all_actions()}
         self.context = context
+        self.context.script = self
         self.actions = []
         self.positions = {}
         self.index = 0
@@ -56,7 +57,7 @@ class Script(JobTemplate):
                 if action_cls:
                     action = action_cls(self.context, line)
                     self.actions.append(action)
-                    action.parse(parts, self)
+                    action.parse(parts)
                 else:
                     messagebox.showwarning("错误", f"解析脚本错误:\n{line}")
                     raise Exception("脚本解析失败")
@@ -74,7 +75,7 @@ class Script(JobTemplate):
                 break
             elif self._status == JobStatus.PAUSED:
                 self._pause_event.wait()
-
+            print(f"[script] {action.line}")
             action.pre_action()
 
             while action.cond_loop():
@@ -103,7 +104,7 @@ class Context:
 if __name__ == '__main__':
     context = Context()
     scp = Script(context)
-    scp.load("scripts/test.txt")
+    scp.load("scripts/工坊.txt")
     scp.start()
 
     scp.join()

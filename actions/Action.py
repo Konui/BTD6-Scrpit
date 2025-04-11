@@ -27,5 +27,5 @@ class Action:
         pass
 
     # 解析代码行
-    def parse(self, parts, script):
+    def parse(self, parts):
         pass

@@ -188,14 +188,15 @@ class GUI:
 
     def start(self):
         if self.script is not None:
+            self.script.reset()
             self.script.start()
             self.update_status()
 
     def update_status(self):
-        if self.script.running < 3:
+        if self.script.status != JobStatus.STOPPED:
             self.root.after(300, self.update_status)
 
-        self.running_var.set(f"{status_dict[0 if self.script is None else 2 if not self.game.window.isActive else self.script.running]}")
+        self.running_var.set(f"{status_dict[JobStatus.IDLE if self.script is None else JobStatus.PAUSED if not self.game.window.isActive else self.script.status]}")
 
         line_num = self.script.index + 1
         self.text_area.config(state=NORMAL)

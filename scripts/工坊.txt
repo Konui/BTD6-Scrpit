@@ -1,6 +1,7 @@
 place d 760,500 ninja0
 upgrade ninja0 1
 upgrade ninja0 3
+start
 upgrade ninja0 3
 upgrade ninja0 1
 upgrade ninja0 1

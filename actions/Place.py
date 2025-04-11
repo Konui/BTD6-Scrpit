@@ -4,8 +4,8 @@ from actions import Action
 place u 120,120
 '''
 class Place(Action):
-    def __init__(self, game, line):
-        super().__init__(game, line)
+    def __init__(self, context, line):
+        super().__init__(context, line)
         self.key = None
         self.x = None
         self.y = None
@@ -26,10 +26,10 @@ class Place(Action):
         self.game.sleep()
         self.game.mouse_click()
 
-    def parse(self, parts, script):
+    def parse(self, parts):
         self.key = parts[1]
         positions = parts[2].split(",")
         self.x = int(positions[0])
         self.y = int(positions[1])
         if len(parts) > 3:
-            script.positions[parts[3]] = self.x, self.y
+            self.context.script.positions[parts[3]] = self.x, self.y
