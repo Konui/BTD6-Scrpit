@@ -140,6 +140,17 @@ class Game:
     def scale_point(self, points):
         return tuple(round(p * self.scale) for p in points)
 
+    def resize(self, img, scal=None):
+        if scal is None:
+            scal = self.scale
+        if isinstance(img, np.ndarray):
+            height, width = img.shape[:2]
+            return cv2.resize(img, (round(width / self.scale), round(height / self.scale)))
+        else:
+            raise Exception("不支持的缩放类型图片")
+
+
+
 if __name__ == "__main__":
     game = Game()
 

@@ -49,8 +49,7 @@ class Menu:
         screenshot = self.game.screenshot()
         target = screenshot.crop(target_p)
         target = cv2.cvtColor(np.array(target), cv2.COLOR_RGB2BGR)
-        height, width = target.shape[:2]
-        target = cv2.resize(target, (round(width / self.game.scale), round(height / self.game.scale)))
+        target = self.game.resize(target)
 
         if match(target, fast):
             return 2
