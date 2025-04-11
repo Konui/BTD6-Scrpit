@@ -14,11 +14,11 @@ money_path_1 = 340,20,550,70
 money_path_2 = 730,20,940,70
 
 upgrade_left_1 = 250,500, 400,550
-upgrade_right1 = 1470,500, 1620,550
+upgrade_right_1 = 1470,500, 1620,550
 upgrade_left_2 = 250, 650, 400,700
-upgrade_right2 = 1470, 650, 1620,700
+upgrade_right_2 = 1470, 650, 1620,700
 upgrade_left_3 = 250, 800, 400,855
-upgrade_right3 = 1470, 800, 1620,855
+upgrade_right_3 = 1470, 800, 1620,855
 
 sell_money_1 = 100,890, 240, 930
 sell_money_2 = 1300,880, 1470, 940
@@ -39,29 +39,9 @@ class Game:
         self.y_offset = 44
         self.window = self.__get_window()
         self.ocr = OCR()
-        self.sleep_interval = 0.1
+        self.sleep_interval = 0.2
 
-        self.regions = {
-            "money_1": money_path_1,
-            "money_2": money_path_2,
-            "upgrade_left_1": upgrade_left_1,
-            "upgrade_right_1": upgrade_right1,
-            "upgrade_left_2": upgrade_left_2,
-            "upgrade_right_2": upgrade_right2,
-            "upgrade_left_3": upgrade_left_3,
-            "upgrade_right_3": upgrade_right3,
-            "sell_money_1": sell_money_1,
-            "sell_money_2": sell_money_2,
-            "round_1": round_1,
-            "round_2": round_2,
-        }
         self.last_screenshot = None
-        self.money = None
-        self.upgrade1 = None
-        self.upgrade2 = None
-        self.upgrade3 = None
-        self.sell_money = None
-        self.round = None
 
     def __get_window(self):
         window = gw.getWindowsWithTitle(self.window_title)
@@ -77,7 +57,8 @@ class Game:
 
     def screenshot(self):
         window = self.window
-        return pyautogui.screenshot(region=(window.left + self.x_offset, window.top + self.y_offset , self.width, self.height))
+        self.last_screenshot = pyautogui.screenshot(region=(window.left + self.x_offset, window.top + self.y_offset , self.width, self.height))
+        return self.last_screenshot
 
     def mouse_move(self, x, y):
         # 获取最新游戏窗口位置
@@ -102,22 +83,24 @@ class Game:
     def activate_window(self):
         self.window.activate()
 
-    def recognition(self):
+    def rec_upgrade_path(self, path):
+        results = self.recognition([money_path_1, money_path_2] + [[upgrade_left_1,upgrade_right_1], [upgrade_left_2,upgrade_right_2], [upgrade_left_3,upgrade_right_3]][path])
+        print(results)
+        money = self.__parse_money(results[:2])
+        upgrade_money = self.__parse_money(results[2:])
+        return money, upgrade_money
+
+    def rec_sell_money(self):
+        results = self.recognition([sell_money_1, sell_money_2])
+        return self.__parse_money(results)
+
+    def recognition(self, regions):
         screenshot = self.screenshot()
         results = []
-        for name, coords in self.regions.items():
+        for coords in regions:
             region_img = screenshot.crop(coords)
             results.append(self.ocr.recognition(np.array(region_img)))
-
-        self.reset()
-        self.last_screenshot = screenshot
-        self.money = self.__parse_money(results[:2])
-        self.upgrade1 = self.__parse_money(results[2:4])
-        self.upgrade2 = self.__parse_money(results[4:6])
-        self.upgrade3 = self.__parse_money(results[6:8])
-        self.sell_money = self.__parse_money(results[8:10])
-        self.round = self.__parse_round(results[10:12])
-        print(f"money: {self.money}, round: {self.round}, upgrade1: {self.upgrade1}, upgrade2: {self.upgrade2}, upgrade3: {self.upgrade3}, sell money: {self.sell_money}")
+        return results
 
     def __parse_money(self, arr):
         for res in arr:
@@ -137,19 +120,11 @@ class Game:
             interval = self.sleep_interval
         sleep(interval)
 
-    def reset(self):
-        self.last_screenshot = None
-        self.money = None
-        self.upgrade1 = None
-        self.upgrade2 = None
-        self.upgrade3 = None
-        self.sell_money =None
-        self.round = None
+
 
 if __name__ == "__main__":
     game = Game()
 
-    print(game.is_activate())
 
 
 

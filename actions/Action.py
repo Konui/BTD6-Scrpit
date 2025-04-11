@@ -8,23 +8,17 @@ class Action:
         pass
 
     # 所有操作后
-    def after_action(self):
-        pass
-
-    # 识别前
-    def pre_recognition(self):
-        pass
-
-    # 识别后
-    def after_recognition(self):
+    def post_action(self):
         pass
 
     # 满足条件后才会执行 action
-    def condition(self):
-        pass
+    def cond_loop(self):
+        if not self.game.window.isActive:
+            return True
+        return not self.loop()
 
-    # 具体执行action
-    def action(self):
+    # 返回True跳出循环
+    def loop(self):
         pass
 
     # 解析代码行

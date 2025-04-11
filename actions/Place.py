@@ -10,26 +10,21 @@ class Place(Action):
         self.x = None
         self.y = None
 
-    def condition(self):
-        return self.game.sell_money is not None
-
-    def pre_recognition(self):
+    def loop(self):
         self.__place()
         self.game.sleep()
         self.game.mouse_click()
-        self.game.sleep(0.5)
-
-    def after_recognition(self):
+        self.game.sleep()
+        # 获取状态信息
+        sell_money = self.game.rec_sell_money()
         self.game.mouse_click()
+        return sell_money is not None
 
     def __place(self):
         self.game.mouse_move(self.x, self.y)
         self.game.keyboard_tap(self.key)
         self.game.sleep()
         self.game.mouse_click()
-
-    def action(self):
-        pass
 
     def parse(self, parts, script):
         self.key = parts[1]

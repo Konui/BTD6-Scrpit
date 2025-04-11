@@ -64,17 +64,6 @@ class Script(JobTemplate):
                 messagebox.showwarning("错误", f"解析脚本错误:\n{line}")
                 raise Exception("脚本解析失败")
 
-    def __process(self, action):
-        if not self.game.window.isActive or self._status != JobStatus.RUNNING:
-            return
-        print(action.line)
-        try:
-            action.pre_recognition()
-            self.game.recognition()
-            action.after_recognition()
-        except Exception as e:
-            print(e)
-
     def _run_task(self):
         print("开始执行")
         print(self.actions)
@@ -85,16 +74,15 @@ class Script(JobTemplate):
                 self._pause_event.wait()
 
             action.pre_action()
-            self.__process(action)
-            while not action.condition():
+
+            while action.cond_loop():
                 if self._stop_event.is_set():
                     break
                 elif self._status == JobStatus.PAUSED:
                     self._pause_event.wait()
                 self.game.sleep(self.game.sleep_interval * 3)
-                self.__process(action)
-            action.action()
-            action.after_action()
+
+            action.post_action()
             self.index = self.index + 1
             self.game.sleep()
         self.stop()
@@ -110,14 +98,7 @@ if __name__ == '__main__':
     scp.load("scripts/test.txt")
     scp.start()
 
-    sleep(5)
-    scp.pause_or_resume()
-    sleep(5)
-    scp.pause_or_resume()
-
     scp.join()
-
-    print(scp.status)
 
 
 
