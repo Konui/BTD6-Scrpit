@@ -1,3 +1,4 @@
+import traceback
 from time import sleep
 from tkinter import messagebox
 from pynput import keyboard
@@ -62,7 +63,8 @@ class Script(JobTemplate):
                     messagebox.showwarning("错误", f"解析脚本错误:\n{line}")
                     raise Exception("脚本解析失败")
             except Exception as e:
-                print(e)
+                print(line)
+                traceback.print_exc()
                 messagebox.showwarning("错误", f"解析脚本错误:\n{line}")
                 raise Exception("脚本解析失败")
 

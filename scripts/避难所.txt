@@ -56,12 +56,12 @@ upgrade sniper0 path 2
 roundend
 
 roundstart 38
-place alchemist alchemist0 at 1027, 146
-upgrade alchemist0 path 0
-upgrade alchemist0 path 0
-upgrade alchemist0 path 0
-upgrade alchemist0 path 1
-upgrade alchemist0 path 1
+place alchemist 炼金 at 1027, 146
+upgrade 炼金 path 0
+upgrade 炼金 path 0
+upgrade 炼金 path 0
+upgrade 炼金 path 1
+upgrade 炼金 path 1
 roundend
 
 autostart
@@ -71,13 +71,13 @@ upgrade sniper0 path 2
 
 round 50
 upgrade ace0 path 2
-upgrade alchemist0 path 0
+upgrade 炼金 path 0
 
 round 78
 upgrade ace0 path 2
 
 round 84
-upgrade alchemist0 path 0
+upgrade 炼金 path 0
 
 round 89
 upgrade dartling0 path 1

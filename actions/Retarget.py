@@ -20,4 +20,5 @@ class Retarget(Action):
     def parse(self, parts):
         self.parse_position(parts[1])
 
-        self.count = int(parts[2])
+        if len(parts) > 2:
+            self.count = int(parts[2])

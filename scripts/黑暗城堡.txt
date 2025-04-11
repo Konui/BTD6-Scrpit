@@ -1,9 +1,9 @@
-place dart dart0 at 766, 824
-place druid druid0 at 775, 649
-upgrade druid0 path 1
-upgrade druid0 path 1
-upgrade druid0 path 1
-upgrade druid0 path 0
+place dart 毛毛 at 766, 824
+place druid 德鲁伊 at 775, 649
+upgrade 德鲁伊 path 1
+upgrade 德鲁伊 path 1
+upgrade 德鲁伊 path 1
+upgrade 德鲁伊 path 0
 place benjamin hero0 at 1878, 237
 place sniper sniper0 at 1143, 600
 upgrade sniper0 path 1
@@ -12,38 +12,38 @@ upgrade sniper0 path 2
 upgrade sniper0 path 2
 upgrade sniper0 path 2
 upgrade sniper0 path 2
-place village village0 at 927, 458
-upgrade village0 path 2
-upgrade village0 path 2
-place village village1 at 1086, 454
-upgrade village1 path 2
-upgrade village1 path 2
+place village 猴村1 at 927, 458
+upgrade 猴村1 path 2
+upgrade 猴村1 path 2
+place village 猴村2 at 1086, 454
+upgrade 猴村2 path 2
+upgrade 猴村2 path 2
 place ace ace0 at 1115, 316
 upgrade ace0 path 2
 upgrade ace0 path 2
 upgrade ace0 path 2
 upgrade ace0 path 0
 upgrade ace0 path 0
-place alchemist alchemist0 at 984, 565
-upgrade alchemist0 path 0
-upgrade alchemist0 path 0
-upgrade alchemist0 path 0
-upgrade alchemist0 path 1
-upgrade alchemist0 path 1
-upgrade alchemist0 path 0
-upgrade village0 path 0
-upgrade village0 path 0
-upgrade village0 path 2
-upgrade village0 path 2
+place alchemist 炼金 at 984, 565
+upgrade 炼金 path 0
+upgrade 炼金 path 0
+upgrade 炼金 path 0
+upgrade 炼金 path 1
+upgrade 炼金 path 1
+upgrade 炼金 path 0
+upgrade 猴村1 path 0
+upgrade 猴村1 path 0
+upgrade 猴村1 path 2
+upgrade 猴村1 path 2
 upgrade sniper0 path 2
-upgrade village1 path 1
-upgrade village1 path 1
-upgrade village1 path 1
+upgrade 猴村2 path 1
+upgrade 猴村2 path 1
+upgrade 猴村2 path 1
 upgrade ace0 path 2
-upgrade druid0 path 1
-upgrade druid0 path 1
+upgrade 德鲁伊 path 1
+upgrade 德鲁伊 path 1
 upgrade ace0 path 2
-upgrade alchemist0 path 0
+upgrade 炼金 path 0
 place spike spike0 at 922, 298
 upgrade spike0 path 0
 upgrade spike0 path 0

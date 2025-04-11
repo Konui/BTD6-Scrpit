@@ -1,25 +1,25 @@
-place sub sub0 at 1594, 256
+place sub 潜艇 at 1594, 256
 place sub sub1 at 659, 936
 place sub sub2 at 1355, 1264
 place sub sub3 at 375, 595
-place dart dart0 at 1743, 1278
-upgrade sub0 path 0
-upgrade sub0 path 0
-upgrade sub0 path 2
+place dart 毛毛 at 1743, 1278
+upgrade 潜艇 path 0
+upgrade 潜艇 path 0
+upgrade 潜艇 path 2
 upgrade sub2 path 2
 upgrade sub1 path 0
-upgrade sub0 path 2
+upgrade 潜艇 path 2
 upgrade sub2 path 2
 place sniper sniper1 at 1134, 58
 upgrade sniper1 path 1
 upgrade sniper1 path 1
 upgrade sniper1 path 2
 upgrade sniper1 path 2
-place druid druid0 at 1123, 150
-upgrade druid0 path 1
-upgrade druid0 path 1
-upgrade druid0 path 1
-upgrade druid0 path 0
+place druid 德鲁伊 at 1123, 150
+upgrade 德鲁伊 path 1
+upgrade 德鲁伊 path 1
+upgrade 德鲁伊 path 1
+upgrade 德鲁伊 path 0
 place sniper sniper0 at 740, 80
 upgrade sniper0 path 0
 retarget sniper0
@@ -27,42 +27,42 @@ retarget sniper0
 retarget sniper0
 upgrade sniper0 path 1
 place benjamin hero0 at 159, 198
-upgrade sub0 path 2
-place village village0 at 1313, 216
-place village village1 at 1354, 354
-upgrade village0 path 2
-upgrade village0 path 2
-upgrade village1 path 2
-upgrade village1 path 2
+upgrade 潜艇 path 2
+place village 猴村1 at 1313, 216
+place village 猴村2 at 1354, 354
+upgrade 猴村1 path 2
+upgrade 猴村1 path 2
+upgrade 猴村2 path 2
+upgrade 猴村2 path 2
 upgrade sniper1 path 2
 upgrade sniper1 path 2
-upgrade sub0 path 2
+upgrade 潜艇 path 2
 place ace ace0 at 1386, 481
 upgrade ace0 path 2
 upgrade ace0 path 2
 upgrade ace0 path 2
 upgrade ace0 path 0
 upgrade ace0 path 0
-place alchemist alchemist0 at 1195, 245
-upgrade alchemist0 path 0
-upgrade alchemist0 path 0
-upgrade alchemist0 path 0
-upgrade alchemist0 path 1
-upgrade alchemist0 path 1
-upgrade alchemist0 path 0
-upgrade village1 path 0
-upgrade village1 path 0
-upgrade village1 path 2
-upgrade village1 path 2
-upgrade village0 path 1
-upgrade village0 path 1
-upgrade druid0 path 1
-upgrade druid0 path 1
-upgrade village0 path 1
+place alchemist 炼金 at 1195, 245
+upgrade 炼金 path 0
+upgrade 炼金 path 0
+upgrade 炼金 path 0
+upgrade 炼金 path 1
+upgrade 炼金 path 1
+upgrade 炼金 path 0
+upgrade 猴村2 path 0
+upgrade 猴村2 path 0
+upgrade 猴村2 path 2
+upgrade 猴村2 path 2
+upgrade 猴村1 path 1
+upgrade 猴村1 path 1
+upgrade 德鲁伊 path 1
+upgrade 德鲁伊 path 1
+upgrade 猴村1 path 1
 upgrade ace0 path 2
 upgrade sniper1 path 2
 upgrade ace0 path 2
-upgrade alchemist0 path 0
+upgrade 炼金 path 0
 place spike spike0 at 1210, 342
 upgrade spike0 path 0
 upgrade spike0 path 0
@@ -71,7 +71,7 @@ upgrade spike0 path 1
 upgrade spike0 path 1
 upgrade spike0 path 1
 upgrade spike0 path 1
-upgrade sub0 path 2
+upgrade 潜艇 path 2
 upgrade sniper0 path 1
 upgrade sniper0 path 0
 upgrade sniper0 path 0

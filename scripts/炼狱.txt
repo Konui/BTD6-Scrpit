@@ -2,30 +2,30 @@ place sniper sniper0 at 2136, 616
 place sniper sniper1 at 2146, 696
 place sniper sniper2 at 2064, 660
 place benjamin hero0 at 1614, 1118
-place druid druid0 at 1102, 510
-upgrade druid0 path 1
-upgrade druid0 path 1
-upgrade druid0 path 1
-upgrade druid0 path 0
-place village village0 at 2110, 897
-upgrade village0 path 2
-upgrade village0 path 2
+place druid 德鲁伊 at 1102, 510
+upgrade 德鲁伊 path 1
+upgrade 德鲁伊 path 1
+upgrade 德鲁伊 path 1
+upgrade 德鲁伊 path 0
+place village 猴村1 at 2110, 897
+upgrade 猴村1 path 2
+upgrade 猴村1 path 2
 upgrade sniper0 path 1
 upgrade sniper0 path 1
 upgrade sniper0 path 2
 upgrade sniper0 path 2
 upgrade sniper0 path 2
 upgrade sniper0 path 2
-place alchemist alchemist0 at 2146, 790
-upgrade alchemist0 path 0
-upgrade alchemist0 path 0
-upgrade alchemist0 path 0
-upgrade alchemist0 path 1
-upgrade alchemist0 path 1
-upgrade alchemist0 path 0
-upgrade village0 path 2
-upgrade village0 path 0
-upgrade village0 path 0
+place alchemist 炼金 at 2146, 790
+upgrade 炼金 path 0
+upgrade 炼金 path 0
+upgrade 炼金 path 0
+upgrade 炼金 path 1
+upgrade 炼金 path 1
+upgrade 炼金 path 0
+upgrade 猴村1 path 2
+upgrade 猴村1 path 0
+upgrade 猴村1 path 0
 upgrade sniper0 path 2
 upgrade sniper1 path 2
 upgrade sniper1 path 2
@@ -34,9 +34,9 @@ upgrade sniper1 path 1
 upgrade sniper1 path 1
 upgrade sniper1 path 1
 upgrade sniper1 path 1
-upgrade druid0 path 1
-upgrade druid0 path 1
-upgrade alchemist0 path 0
+upgrade 德鲁伊 path 1
+upgrade 德鲁伊 path 1
+upgrade 炼金 path 0
 upgrade sniper2 path 1
 upgrade sniper2 path 1
 upgrade sniper2 path 0
