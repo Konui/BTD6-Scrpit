@@ -8,7 +8,7 @@ from common import timer
 
 class OCR():
     def __init__(self):
-        self.model = PaddleOCR(lang="ch", use_angle_cls=False)
+        self.model = PaddleOCR(lang="ch", use_angle_cls=False, show_log=False)
 
     @timer
     def recognition(self, img):

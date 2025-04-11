@@ -7,13 +7,14 @@ from game import Game
 from pynput.mouse import Controller as MouseController
 import time
 
-from script import Script
+from job import JobStatus
+from script import Script, Context
 
 status_dict = {
-    0: "未运行",
-    1: "运行中",
-    2: "暂停中",
-    3: "已结束"
+    JobStatus.IDLE: "未运行",
+    JobStatus.RUNNING: "运行中",
+    JobStatus.PAUSED: "暂停中",
+    JobStatus.STOPPED: "已结束"
 }
 
 class PositionWindow(Toplevel):
@@ -146,8 +147,9 @@ class PositionWindow(Toplevel):
 
 
 class GUI:
-    def __init__(self, game):
-        self.game = game
+    def __init__(self, context):
+        self.context = context
+        self.game = context.game
         self.script = None
 
         self.root = Tk()
@@ -168,7 +170,7 @@ class GUI:
         Button(self.control_frame, text="暂停/继续", command=self.pause_or_resume).pack(side="left")
         Button(self.control_frame, text="终止", command=self.stop).pack(side="left")
 
-        self.running_var = StringVar(value=f"{status_dict[0 if self.script is None else self.script.running]}")
+        self.running_var = StringVar(value=f"{status_dict[JobStatus.IDLE if self.script is None else self.script.status]}")
         self.runningLabel = Label(self.frame, textvariable=self.running_var)
         self.runningLabel.pack()
         self.path_label = Label(self.frame, text="未选择脚本")
@@ -186,14 +188,15 @@ class GUI:
 
     def start(self):
         if self.script is not None:
+            self.script.reset()
             self.script.start()
             self.update_status()
 
     def update_status(self):
-        if self.script.running < 3:
+        if self.script.status != JobStatus.STOPPED:
             self.root.after(300, self.update_status)
 
-        self.running_var.set(f"{status_dict[0 if self.script is None else 2 if not self.game.window.isActive else self.script.running]}")
+        self.running_var.set(f"{status_dict[JobStatus.IDLE if self.script is None else JobStatus.PAUSED if not self.game.window.isActive else self.script.status]}")
 
         line_num = self.script.index + 1
         self.text_area.config(state=NORMAL)
@@ -236,7 +239,7 @@ class GUI:
             try:
                 with open(file_path, 'r', encoding='utf-8') as f:
                     content = f.read()
-                    self.script = Script(self.game)
+                    self.script = Script(self.context)
                     self.script.load(content=content)
                     self.content = '\n'.join([a.line for a in self.script.actions])
 
@@ -262,5 +265,6 @@ class GUI:
 
 
 if __name__ == '__main__':
-    gui = GUI(Game())
+    context = Context()
+    gui = GUI(context)
     gui.mainloop()

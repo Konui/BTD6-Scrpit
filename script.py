@@ -1,9 +1,11 @@
-import threading
 from time import sleep
 from tkinter import messagebox
 from pynput import keyboard
 from actions import *
 from game import Game
+from job import JobTemplate, JobStatus
+from menu import Menu
+
 
 def get_all_actions():
     all_subclasses = []
@@ -12,13 +14,13 @@ def get_all_actions():
         all_subclasses.append(subclass)
     return all_subclasses
 
-class Script:
-    def __init__(self, game):
+class Script(JobTemplate):
+    def __init__(self, context):
+        super().__init__()
         self.action_dict = {action.__name__.lower(): action for action in get_all_actions()}
-        self.game = game
+        self.context = context
+        self.context.script = self
         self.actions = []
-        # 0 未开始 1 运行中 2 暂停 3 停止
-        self.running = 0
         self.positions = {}
         self.index = 0
 
@@ -27,7 +29,9 @@ class Script:
                 print("暂停/恢复")
                 self.pause_or_resume()
 
-        keyboard.Listener(on_press=on_press).start()
+        listener = keyboard.Listener(on_press=on_press)
+        listener.daemon=True
+        listener.start()
 
     def load(self, path=None, content=None):
         lines = []
@@ -51,9 +55,9 @@ class Script:
                 action_name = parts[0]
                 action_cls = self.action_dict[action_name.lower()]
                 if action_cls:
-                    action = action_cls(self.game, line)
+                    action = action_cls(self.context, line)
                     self.actions.append(action)
-                    action.parse(parts, self)
+                    action.parse(parts)
                 else:
                     messagebox.showwarning("错误", f"解析脚本错误:\n{line}")
                     raise Exception("脚本解析失败")
@@ -62,60 +66,48 @@ class Script:
                 messagebox.showwarning("错误", f"解析脚本错误:\n{line}")
                 raise Exception("脚本解析失败")
 
-    def __process(self, action):
-        if not self.game.window.isActive or self.running > 1:
-            return
-        print(action.line)
-        try:
-            action.pre_recognition()
-            self.game.recognition()
-            action.after_recognition()
-        except Exception as e:
-            print(e)
-
-    def execute(self):
+    def _run_task(self):
         print("开始执行")
         print(self.actions)
-        self.game.activate_window()
+        self.context.menu.clear_alert()
         for action in self.actions:
+            if self._stop_event.is_set():
+                break
+            elif self._status == JobStatus.PAUSED:
+                self._pause_event.wait()
+            print(f"[script] {action.line}")
             action.pre_action()
-            self.__process(action)
-            while not action.condition():
-                if self.running > 1:
-                    return
-                self.game.sleep()
-                self.__process(action)
-            action.action()
-            action.after_action()
+
+            while action.cond_loop():
+                if self._stop_event.is_set():
+                    break
+                elif self._status == JobStatus.PAUSED:
+                    self._pause_event.wait()
+                self.context.game.sleep(self.context.game.sleep_interval * 3)
+
+            action.post_action()
             self.index = self.index + 1
+            self.context.game.sleep()
         self.stop()
-        print("运行结束")
 
-    def start(self):
-        if self.running == 0 or self.running == 3:
-            self.reset()
-            self.running = 1
-            threading.Thread(target=self.execute).start()
-
-    def stop(self):
-        self.running = 3
-
-    def pause_or_resume(self):
-        if self.running == 1:
-            self.running = 2
-        elif self.running == 2:
-            self.running = 1
-        return self.running
 
     def reset(self):
-        self.running = 0
+        super().reset()
         self.index = 0
 
+class Context:
+    def __init__(self):
+        self.game = Game()
+        self.menu = Menu(self.game)
+        self.script = None
+
 if __name__ == '__main__':
-    g = Game()
-    scp = Script(g)
+    context = Context()
+    scp = Script(context)
     scp.load("scripts/工坊.txt")
     scp.start()
+
+    scp.join()
 
 
 
