@@ -91,8 +91,8 @@ class Game:
         upgrade_money = self.__parse_money(results[2:])
         return money, upgrade_money
 
-    def rec_sell_money(self):
-        results = self.recognition([sell_money_1, sell_money_2])
+    def rec_money(self):
+        results = self.recognition([money_path_1, money_path_2])
         return self.__parse_money(results)
 
     def recognition(self, regions):

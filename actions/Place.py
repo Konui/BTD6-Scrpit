@@ -11,14 +11,17 @@ class Place(Action):
         self.y = None
 
     def loop(self):
+        # 获取状态信息
+        first_money = self.game.rec_money()
         self.__place()
         self.game.sleep()
+        second_money = self.game.rec_money()
+        #放成功少点一下
+        if first_money > second_money:
+            return True
         self.game.mouse_click()
-        self.game.sleep()
-        # 获取状态信息
-        sell_money = self.game.rec_sell_money()
-        self.game.mouse_click()
-        return sell_money is not None
+        print(first_money, second_money)
+        return False
 
     def __place(self):
         self.game.mouse_move(self.x, self.y)
