@@ -1,0 +1,84 @@
+roundstart 6
+autostart
+place dartling dartling0 at 1212, 1271
+retarget dartling0
+roundend
+
+roundstart 7
+place benjamin benjamin0 at 637, 1180
+roundend
+
+roundstart 8
+place sniper sniper0 at 1106, 395
+roundend
+
+roundstart 9
+upgrade dartling0 path 0
+upgrade dartling0 path 1
+roundend
+
+roundstart 10
+place ace ace0 at 1113, 245
+roundend
+
+roundstart 13
+upgrade dartling0 path 1
+roundend
+
+roundstart 14
+upgrade ace0 path 2
+upgrade sniper0 path 2
+upgrade sniper0 path 2
+roundend
+
+roundstart 16
+upgrade sniper0 path 1
+upgrade sniper0 path 1
+roundend
+
+roundstart 22
+upgrade sniper0 path 2
+roundend
+
+roundstart 27
+upgrade dartling0 path 1
+roundend
+
+roundstart 32
+upgrade ace0 path 2
+upgrade ace0 path 2
+upgrade ace0 path 1
+upgrade ace0 path 1
+roundend
+
+roundstart 36
+upgrade sniper0 path 2
+roundend
+
+roundstart 38
+place alchemist alchemist0 at 1027, 146
+upgrade alchemist0 path 0
+upgrade alchemist0 path 0
+upgrade alchemist0 path 0
+upgrade alchemist0 path 1
+upgrade alchemist0 path 1
+roundend
+
+autostart
+
+round 44 
+upgrade sniper0 path 2
+
+round 50
+upgrade ace0 path 2
+upgrade alchemist0 path 0
+
+round 78
+upgrade ace0 path 2
+
+round 84
+upgrade alchemist0 path 0
+
+round 89
+upgrade dartling0 path 1
+upgrade dartling0 path 1

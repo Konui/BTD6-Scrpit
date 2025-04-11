@@ -24,14 +24,13 @@ class Menu:
         self.game = game
 
     def auto_start(self, enable=True):
-        point = self.game.scale_point(auto_start_point)
         self.game.keyboard_tap(keyboard.Key.esc)
         self.game.sleep(self.game.sleep_interval*4)
         screenshot = self.game.screenshot()
         color = screenshot.getpixel()
         status = is_color_similar(color, auto_start_color)
         if status != enable:
-            self.game.mouse_move(*point)
+            self.game.mouse_move(*auto_start_point)
             self.game.mouse_click()
         self.game.keyboard_tap(keyboard.Key.esc)
 
@@ -40,7 +39,7 @@ class Menu:
         for text in result:
             if any(word.lower() in text.lower() for word in alert_keywords):
                 print("检查到弹窗")
-                self.game.mouse_move(*self.game.scale_point(auto_start_point))
+                self.game.mouse_move(*auto_start_point)
                 self.game.mouse_click()
                 return
 

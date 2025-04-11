@@ -1,60 +1,61 @@
-place d 760,500 ninja0
-upgrade ninja0 1
-upgrade ninja0 3
+place d 760,500 忍者
+upgrade 忍者 1
+upgrade 忍者 3
 start
-upgrade ninja0 3
-upgrade ninja0 1
-upgrade ninja0 1
-place g 1017,496 druid0
-upgrade druid0 2
-upgrade druid0 2
-upgrade druid0 2
-upgrade druid0 1
+upgrade 忍者 3
+upgrade 忍者 1
+upgrade 忍者 1
+place g 1017,496 德鲁伊
+upgrade 德鲁伊 2
+upgrade 德鲁伊 2
+upgrade 德鲁伊 2
+upgrade 德鲁伊 1
 place u 72,198
-place z 945,498 sniper0
-upgrade sniper0 2
-upgrade sniper0 2
-upgrade sniper0 3
-upgrade sniper0 3
-upgrade sniper0 3
-upgrade sniper0 3
-place j 1595,630 spike0
-upgrade spike0 1
-upgrade spike0 1
-upgrade spike0 3
-upgrade spike0 3
-upgrade spike0 3
-upgrade spike0 3
-place k 1492,641 village0
-upgrade village0 3
-upgrade village0 3
-place k 1423,728 village1
-upgrade village1 3
-upgrade village1 3
-place f 1542,711 alchemist0
-upgrade alchemist0 1
-upgrade alchemist0 1
-upgrade alchemist0 1
-upgrade alchemist0 2
-upgrade alchemist0 2
-upgrade alchemist0 1
-place v 1395,828 ace0
-upgrade ace0 3
-upgrade ace0 3
-upgrade ace0 3
-upgrade ace0 1
-upgrade ace0 1
-upgrade village0 1
-upgrade village0 1
-upgrade village0 3
-upgrade village0 3
-upgrade sniper0 3
-upgrade village1 2
-upgrade village1 2
-upgrade village1 2
-upgrade ace0 3
-upgrade druid0 2
-upgrade druid0 2
-upgrade ace0 3
-upgrade spike0 3
-upgrade alchemist0 1
+place z 945,498 狙
+upgrade 狙 2
+upgrade 狙 2
+upgrade 狙 3
+upgrade 狙 3
+upgrade 狙 3
+upgrade 狙 3
+place j 1595,630 刺钉
+upgrade 刺钉 1
+upgrade 刺钉 1
+upgrade 刺钉 3
+upgrade 刺钉 3
+regart 刺钉
+upgrade 刺钉 3
+upgrade 刺钉 3
+place k 1492,641 猴村1
+upgrade 猴村1 3
+upgrade 猴村1 3
+place k 1423,728 猴村2
+upgrade 猴村2 3
+upgrade 猴村2 3
+place f 1542,711 炼金
+upgrade 炼金 1
+upgrade 炼金 1
+upgrade 炼金 1
+upgrade 炼金 2
+upgrade 炼金 2
+upgrade 炼金 1
+place v 1395,828 飞机
+upgrade 飞机 3
+upgrade 飞机 3
+upgrade 飞机 3
+upgrade 飞机 1
+upgrade 飞机 1
+upgrade 猴村1 1
+upgrade 猴村1 1
+upgrade 猴村1 3
+upgrade 猴村1 3
+upgrade 狙 3
+upgrade 猴村2 2
+upgrade 猴村2 2
+upgrade 猴村2 2
+upgrade 飞机 3
+upgrade 德鲁伊 2
+upgrade 德鲁伊 2
+upgrade 飞机 3
+upgrade 刺钉 3
+upgrade 炼金 1

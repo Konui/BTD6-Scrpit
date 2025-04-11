@@ -1,0 +1,74 @@
+place sniper sniper0 at 2136, 616
+place sniper sniper1 at 2146, 696
+place sniper sniper2 at 2064, 660
+place benjamin hero0 at 1614, 1118
+place druid druid0 at 1102, 510
+upgrade druid0 path 1
+upgrade druid0 path 1
+upgrade druid0 path 1
+upgrade druid0 path 0
+place village village0 at 2110, 897
+upgrade village0 path 2
+upgrade village0 path 2
+upgrade sniper0 path 1
+upgrade sniper0 path 1
+upgrade sniper0 path 2
+upgrade sniper0 path 2
+upgrade sniper0 path 2
+upgrade sniper0 path 2
+place alchemist alchemist0 at 2146, 790
+upgrade alchemist0 path 0
+upgrade alchemist0 path 0
+upgrade alchemist0 path 0
+upgrade alchemist0 path 1
+upgrade alchemist0 path 1
+upgrade alchemist0 path 0
+upgrade village0 path 2
+upgrade village0 path 0
+upgrade village0 path 0
+upgrade sniper0 path 2
+upgrade sniper1 path 2
+upgrade sniper1 path 2
+upgrade sniper1 path 1
+upgrade sniper1 path 1
+upgrade sniper1 path 1
+upgrade sniper1 path 1
+upgrade sniper1 path 1
+upgrade druid0 path 1
+upgrade druid0 path 1
+upgrade alchemist0 path 0
+upgrade sniper2 path 1
+upgrade sniper2 path 1
+upgrade sniper2 path 0
+upgrade sniper2 path 0
+upgrade sniper2 path 0
+upgrade sniper2 path 0
+upgrade sniper2 path 0
+retarget sniper2
+retarget sniper2
+retarget sniper2
+place sniper sniper3 at 2054, 734
+upgrade sniper3 path 1
+upgrade sniper3 path 1
+upgrade sniper3 path 0
+upgrade sniper3 path 0
+upgrade sniper3 path 0
+upgrade sniper3 path 0
+retarget sniper3
+retarget sniper3
+retarget sniper3
+place sniper sniper4 at 2031, 807
+upgrade sniper4 path 0
+upgrade sniper4 path 0
+upgrade sniper4 path 2
+upgrade sniper4 path 2
+upgrade sniper4 path 2
+upgrade sniper4 path 2
+place spike spike0 at 103, 655
+upgrade spike0 path 0
+upgrade spike0 path 0
+upgrade spike0 path 1
+upgrade spike0 path 1
+upgrade spike0 path 1
+upgrade spike0 path 1
+upgrade spike0 path 1

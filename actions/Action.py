@@ -1,3 +1,5 @@
+import traceback
+
 from menu import *
 
 class Action:
@@ -23,7 +25,10 @@ class Action:
         if not self.game.window.isActive:
             return True
         self.menu.clear_alert()
-        return not self.loop()
+        try:
+            return not self.loop()
+        except:
+            traceback.print_exc()
 
     # 返回True跳出循环
     def loop(self):

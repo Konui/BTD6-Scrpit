@@ -123,7 +123,7 @@ class Game:
         for res in arr:
             for r in res:
                 if (r.startswith("$")):
-                    return int(r.replace("$", "").replace(",", "").replace(".",""))
+                    return int(''.join([c for c in r if c.isdigit()]))
         return None
 
     def __parse_round(self, arr):

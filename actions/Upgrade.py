@@ -9,26 +9,23 @@ class Upgrade(Action):
         self.path = None
 
     def loop(self):
+        self.game.mouse_move(self.x, self.y)
+        self.game.mouse_click()
+        # 等待窗口动画
+        self.game.sleep()
+
+        result = False
         money, upgrade_money = self.game.rec_upgrade_path(self.path)
         print(money, upgrade_money)
-        if upgrade_money is None or money is None:
-            return False
-        elif money >= upgrade_money:
+        if upgrade_money is not None and money is not None and money >= upgrade_money:
             self.game.keyboard_tap([',', '.', '/'][self.path])
-            return True
-        return False
+            result = True
 
-    def pre_action(self):
         self.game.mouse_move(self.x, self.y)
         self.game.mouse_click()
         # 等待窗口动画
         self.game.sleep()
-
-    def post_action(self):
-        self.game.mouse_move(self.x, self.y)
-        self.game.mouse_click()
-        # 等待窗口动画
-        self.game.sleep()
+        return result
 
     def parse(self, parts):
         self.parse_position(parts[1])

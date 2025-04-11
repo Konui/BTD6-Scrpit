@@ -1,0 +1,58 @@
+place druid druid0 at 382, 897
+place druid druid1 at 990, 1084
+upgrade druid0 path 1
+upgrade druid0 path 1
+upgrade druid0 path 1
+upgrade druid0 path 0
+place benjamin hero0 at 1934, 1360
+upgrade druid1 path 1
+upgrade druid1 path 1
+upgrade druid1 path 1
+upgrade druid1 path 0
+place sniper sniper0 at 889, 1086
+upgrade sniper0 path 1
+upgrade sniper0 path 1
+upgrade sniper0 path 2
+upgrade sniper0 path 2
+upgrade sniper0 path 2
+upgrade sniper0 path 2
+place village village0 at 554, 1015
+place village village1 at 717, 1076
+upgrade village0 path 2
+upgrade village0 path 2
+upgrade village1 path 2
+upgrade village1 path 2
+place ace ace0 at 466, 1147
+upgrade ace0 path 2
+upgrade ace0 path 2
+upgrade ace0 path 2
+upgrade ace0 path 0
+upgrade ace0 path 0
+place alchemist alchemist0 at 657, 1174
+upgrade alchemist0 path 0
+upgrade alchemist0 path 0
+upgrade alchemist0 path 0
+upgrade alchemist0 path 1
+upgrade alchemist0 path 1
+upgrade alchemist0 path 0
+upgrade village1 path 0
+upgrade village1 path 0
+upgrade village1 path 2
+upgrade village1 path 2
+upgrade village0 path 1
+upgrade village0 path 1
+upgrade druid1 path 1
+upgrade druid1 path 1
+upgrade village0 path 1
+upgrade ace0 path 2
+upgrade sniper0 path 2
+upgrade ace0 path 2
+upgrade alchemist0 path 0
+place spike spike0 at 492, 1267
+upgrade spike0 path 0
+upgrade spike0 path 0
+upgrade spike0 path 1
+upgrade spike0 path 1
+upgrade spike0 path 1
+upgrade spike0 path 1
+upgrade spike0 path 1
