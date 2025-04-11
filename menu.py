@@ -6,6 +6,9 @@ from common import *
 auto_start_point = 1290,310
 auto_start_color = 120,230,0
 
+alert_area = 750,300, 1200,870
+
+alert_keywords = ['ok', "升级"]
 
 class Menu:
     def __init__(self, game):
@@ -22,8 +25,16 @@ class Menu:
             self.game.mouse_click()
         self.game.keyboard_tap(keyboard.Key.esc)
 
+    def clear_alert(self):
+        result = self.game.recognition([alert_area])[0]
+        for text in result:
+            if any(word.lower() in text.lower() for word in alert_keywords):
+                print("检查到弹窗")
+                self.game.mouse_move(*auto_start_point)
+                self.game.mouse_click()
+                return
 
 if __name__ == "__main__":
     g = Game()
     menu = Menu(g)
-    menu.auto_start(False)
+    menu.clear_alert()

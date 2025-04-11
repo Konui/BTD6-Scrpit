@@ -4,6 +4,7 @@ from pynput import keyboard
 from actions import *
 from game import Game
 from job import JobTemplate, JobStatus
+from menu import Menu
 
 
 def get_all_actions():
@@ -14,10 +15,10 @@ def get_all_actions():
     return all_subclasses
 
 class Script(JobTemplate):
-    def __init__(self, game):
+    def __init__(self, context):
         super().__init__()
         self.action_dict = {action.__name__.lower(): action for action in get_all_actions()}
-        self.game = game
+        self.context = context
         self.actions = []
         self.positions = {}
         self.index = 0
@@ -53,7 +54,7 @@ class Script(JobTemplate):
                 action_name = parts[0]
                 action_cls = self.action_dict[action_name.lower()]
                 if action_cls:
-                    action = action_cls(self.game, line)
+                    action = action_cls(self.context, line)
                     self.actions.append(action)
                     action.parse(parts, self)
                 else:
@@ -67,6 +68,7 @@ class Script(JobTemplate):
     def _run_task(self):
         print("开始执行")
         print(self.actions)
+        self.context.menu.clear_alert()
         for action in self.actions:
             if self._stop_event.is_set():
                 break
@@ -80,11 +82,11 @@ class Script(JobTemplate):
                     break
                 elif self._status == JobStatus.PAUSED:
                     self._pause_event.wait()
-                self.game.sleep(self.game.sleep_interval * 3)
+                self.context.game.sleep(self.context.game.sleep_interval * 3)
 
             action.post_action()
             self.index = self.index + 1
-            self.game.sleep()
+            self.context.game.sleep()
         self.stop()
 
 
@@ -92,9 +94,15 @@ class Script(JobTemplate):
         super().reset()
         self.index = 0
 
+class Context:
+    def __init__(self):
+        self.game = Game()
+        self.menu = Menu(self.game)
+        self.script = None
+
 if __name__ == '__main__':
-    g = Game()
-    scp = Script(g)
+    context = Context()
+    scp = Script(context)
     scp.load("scripts/test.txt")
     scp.start()
 

@@ -1,6 +1,10 @@
+from menu import *
+
 class Action:
-    def __init__(self, game, line):
-        self.game = game
+    def __init__(self, context, line):
+        self.context = context
+        self.game = context.game
+        self.menu = context.menu
         self.line = line
 
     # 所有操作前
@@ -15,6 +19,7 @@ class Action:
     def cond_loop(self):
         if not self.game.window.isActive:
             return True
+        self.menu.clear_alert()
         return not self.loop()
 
     # 返回True跳出循环
